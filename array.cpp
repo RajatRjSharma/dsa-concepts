@@ -217,7 +217,59 @@ public:
         }
         return (T)NULL;
     }
+
+    /**
+     * Method to find a element in custom array by linear search.
+     * @param value: Value to search in array.
+     */
+    int linearSearch(T value)
+    {
+        for (int i = 0; i < used_size; i++)
+        {
+            if (value == base_address[i])
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
 };
+
+/**
+ * Method to find a element in custom array by binary search.
+ * Requires a sorted array.
+ * @param arr: Sorted arr to search in.
+ * @param value: Value to search in array.
+ * @param arrSize: Size of the array.
+ */
+int binarySearch(int arr[], int value, int arrSize)
+{
+    int s = 0;
+    int e = arrSize - 1;
+    int mid = (s + e) / 2;
+    if (arr[s] == value)
+        return s;
+    if (arr[e] == value)
+        return e;
+    while (s <= e)
+    {
+        if (arr[mid] == value)
+        {
+            return mid;
+        }
+        else if (arr[mid] > value)
+        {
+            e = mid - 1;
+            mid = (s + e) / 2;
+        }
+        else
+        {
+            s = mid + 1;
+            mid = (s + e) / 2;
+        }
+    }
+    return -1;
+}
 
 int main()
 {
@@ -257,6 +309,8 @@ int main()
     cout << "Set 190th Element : " << arr.setByIndex(324, 190) << endl;
     cout << "Get 4th Element : " << arr.getByIndex(4) << endl;
     cout << "Get 15th Element : " << arr.getByIndex(150) << endl;
+    cout << "Linear Search : " << arr.linearSearch(6) << endl;
+    cout << "Linear Search : " << arr.linearSearch(150) << endl;
     arr.print();
     for (int i = 0; i < 5; i++)
     {
@@ -317,6 +371,8 @@ int main()
     cout << "Set 190th Element : " << arr2.setByIndex('e', 190) << endl;
     cout << "Get 4th Element : " << arr2.getByIndex(4) << endl;
     cout << "Get 15th Element : " << arr2.getByIndex(150) << endl;
+    cout << "Linear Search : " << arr2.linearSearch('e') << endl;
+    cout << "Linear Search : " << arr2.linearSearch('m') << endl;
     arr2.print();
     for (int i = 0; i < 5; i++)
     {
@@ -339,4 +395,16 @@ int main()
         cout << "Used Size : " << arr2.usedSize() << endl;
         arr2.print();
     }
+
+    cout << endl;
+    cout << endl;
+    cout << "BINARY SEARCH";
+    cout << endl;
+    cout << endl;
+
+    int arr5[] = {0, 10, 20, 30, 40, 50, 60, 70, 80, 90};
+    arrSize = sizeof(arr5) / sizeof(arr5[0]);
+    cout << "30 at : " << binarySearch(arr5, 30, arrSize) << endl;
+    cout << "60 at : " << binarySearch(arr5, 60, arrSize) << endl;
+    cout << "37 at : " << binarySearch(arr5, 37, arrSize) << endl;
 }
