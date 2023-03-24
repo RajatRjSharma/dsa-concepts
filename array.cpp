@@ -22,7 +22,7 @@ public:
     }
 
     // To add value by user input
-    void addFromUser()
+    void addElementFromUser()
     {
         if (used_size < total_size)
         {
@@ -53,7 +53,7 @@ public:
             return 0;
     }
 
-    T max()
+    T maxElement()
     {
         T maxx = (T)NULL;
         if (used_size && used_size > 0)
@@ -67,7 +67,21 @@ public:
         return maxx;
     }
 
-    T get(int i)
+    T minElement()
+    {
+        T minn = (T)NULL;
+        if (used_size && used_size > 0)
+        {
+            for (int i = 0; i < used_size; i++)
+            {
+                if (minn > base_address[i])
+                    minn = base_address[i];
+            }
+        }
+        return minn;
+    }
+
+    T getByIndex(int i)
     {
         if (i >= 0 && i <= used_size)
         {
@@ -76,7 +90,7 @@ public:
         return (T)NULL;
     }
 
-    int set(T value, int i)
+    T setByIndex(T value, int i)
     {
         if (i >= 0 && i <= used_size)
         {
@@ -86,7 +100,7 @@ public:
         return (T)NULL;
     }
 
-    void add(T arr[], int arrSize)
+    void addArray(T arr[], int arrSize)
     {
         T *tempArr = base_address;
         int tempSize = used_size;
@@ -113,12 +127,12 @@ public:
         cout << endl;
     }
 
-    T insert(int num)
+    T insertElement(int num)
     {
-        return insert(num, used_size);
+        return insertElement(num, used_size);
     }
 
-    T insert(T value, int i)
+    T insertElement(T value, int i)
     {
         if (i >= 0 && i <= used_size && used_size < total_size)
         {
@@ -133,12 +147,12 @@ public:
         return (T)NULL;
     }
 
-    T deleteEle()
+    T deleteElement()
     {
-        return deleteEle(used_size - 1);
+        return deleteElement(used_size - 1);
     }
 
-    T deleteEle(int i)
+    T deleteElement(int i)
     {
         if (i >= 0 && i <= used_size)
         {
@@ -164,36 +178,36 @@ int main()
     MyArray<int> arr(5);
     int arr1[] = {1, 2, 3, 4, 5, 6};
     int arrSize = sizeof(arr1) / sizeof(arr1[0]);
-    arr.add(arr1, arrSize);
+    arr.addArray(arr1, arrSize);
     cout << "Total Size : " << arr.totalSize() << endl;
     cout << "Used Size : " << arr.usedSize() << endl;
-    arr.add(arr1, arrSize);
+    arr.addArray(arr1, arrSize);
     cout << "Total Size : " << arr.totalSize() << endl;
     cout << "Used Size : " << arr.usedSize() << endl;
     arr.print();
-    cout << "Insert Element : " << arr.insert(100, 0) << endl;
-    cout << "Insert Element : " << arr.insert(100, 17) << endl;
-    cout << "Insert Element : " << arr.insert(101) << endl;
-    arr.addFromUser();
-    arr.addFromUser();
-    arr.addFromUser();
-    arr.addFromUser();
-    arr.addFromUser();
-    arr.addFromUser();
+    cout << "Insert Element : " << arr.insertElement(100, 0) << endl;
+    cout << "Insert Element : " << arr.insertElement(100, 17) << endl;
+    cout << "Insert Element : " << arr.insertElement(101) << endl;
+    arr.addElementFromUser();
+    arr.addElementFromUser();
+    arr.addElementFromUser();
+    arr.addElementFromUser();
+    arr.addElementFromUser();
+    arr.addElementFromUser();
     arr.print();
     cout << "Total Size : " << arr.totalSize() << endl;
     cout << "Used Size : " << arr.usedSize() << endl;
-    cout << "Max Element : " << arr.max() << endl;
-    cout << "Set Success : " << arr.set(25, 5) << endl;
-    cout << "Set Success : " << arr.set(324, 19) << endl;
-    cout << "Get 4th Element : " << arr.get(4) << endl;
-    cout << "Get 15th Element : " << arr.get(15) << endl;
+    cout << "Max Element : " << arr.maxElement() << endl;
+    cout << "Set Success : " << arr.setByIndex(25, 5) << endl;
+    cout << "Set Success : " << arr.setByIndex(324, 19) << endl;
+    cout << "Get 4th Element : " << arr.getByIndex(4) << endl;
+    cout << "Get 15th Element : " << arr.getByIndex(15) << endl;
     arr.print();
-    cout << "Delete Element : " << arr.deleteEle(2) << endl;
-    cout << "Delete Element : " << arr.deleteEle(12) << endl;
-    cout << "Delete Element : " << arr.deleteEle(17) << endl;
-    cout << "Delete Element : " << arr.deleteEle(7) << endl;
-    cout << "Delete Element : " << arr.deleteEle() << endl;
+    cout << "Delete Element : " << arr.deleteElement(2) << endl;
+    cout << "Delete Element : " << arr.deleteElement(12) << endl;
+    cout << "Delete Element : " << arr.deleteElement(17) << endl;
+    cout << "Delete Element : " << arr.deleteElement(7) << endl;
+    cout << "Delete Element : " << arr.deleteElement() << endl;
     cout << "Total Size : " << arr.totalSize() << endl;
     cout << "Used Size : " << arr.usedSize() << endl;
     arr.print();
@@ -206,39 +220,39 @@ int main()
 
     MyArray<char> arr2(5);
     char arr3[] = {'a', 'b', 'c', 'd', 'e'};
-    arrSize = sizeof(arr1) / sizeof(arr1[0]);
-    arr2.add(arr3, arrSize);
+    arrSize = sizeof(arr3) / sizeof(arr3[0]);
+    arr2.addArray(arr3, arrSize);
     cout << "Total Size : " << arr2.totalSize() << endl;
     cout << "Used Size : " << arr2.usedSize() << endl;
-    arr2.add(arr3, arrSize);
+    arr2.addArray(arr3, arrSize);
     cout << "Total Size : " << arr2.totalSize() << endl;
     cout << "Used Size : " << arr2.usedSize() << endl;
     arr2.print();
-    cout << "Insert Element : " << arr2.insert('y', 0) << endl;
-    cout << "Insert Element : " << arr2.insert('r', 17) << endl;
-    cout << "Insert Element : " << arr2.insert('o') << endl;
+    cout << "Insert Element : " << arr2.insertElement('y', 0) << endl;
+    cout << "Insert Element : " << arr2.insertElement('r', 17) << endl;
+    cout << "Insert Element : " << arr2.insertElement('o') << endl;
     cout << "Total Size : " << arr2.totalSize() << endl;
     cout << "Used Size : " << arr2.usedSize() << endl;
-    arr2.addFromUser();
-    arr2.addFromUser();
-    arr2.addFromUser();
-    arr2.addFromUser();
-    arr2.addFromUser();
-    arr2.addFromUser();
+    arr2.addElementFromUser();
+    arr2.addElementFromUser();
+    arr2.addElementFromUser();
+    arr2.addElementFromUser();
+    arr2.addElementFromUser();
+    arr2.addElementFromUser();
     arr2.print();
     cout << "Total Size : " << arr2.totalSize() << endl;
     cout << "Used Size : " << arr2.usedSize() << endl;
-    cout << "Max Element : " << arr2.max() << endl;
-    cout << "Set Success : " << arr2.set('n', 5) << endl;
-    cout << "Set Success : " << arr2.set('r', 19) << endl;
-    cout << "Get 4th Element : " << arr2.get(4) << endl;
-    cout << "Get 15th Element : " << arr2.get(15) << endl;
+    cout << "Max Element : " << arr2.maxElement() << endl;
+    cout << "Set Success : " << arr2.setByIndex('n', 5) << endl;
+    cout << "Set Success : " << arr2.setByIndex('r', 19) << endl;
+    cout << "Get 4th Element : " << arr2.getByIndex(4) << endl;
+    cout << "Get 15th Element : " << arr2.getByIndex(15) << endl;
     arr2.print();
-    cout << "Delete Element : " << arr2.deleteEle(2) << endl;
-    cout << "Delete Element : " << arr2.deleteEle(12) << endl;
-    cout << "Delete Element : " << arr2.deleteEle(17) << endl;
-    cout << "Delete Element : " << arr2.deleteEle(7) << endl;
-    cout << "Delete Element : " << arr2.deleteEle() << endl;
+    cout << "Delete Element : " << arr2.deleteElement(2) << endl;
+    cout << "Delete Element : " << arr2.deleteElement(12) << endl;
+    cout << "Delete Element : " << arr2.deleteElement(17) << endl;
+    cout << "Delete Element : " << arr2.deleteElement(7) << endl;
+    cout << "Delete Element : " << arr2.deleteElement() << endl;
     cout << "Total Size : " << arr2.totalSize() << endl;
     cout << "Used Size : " << arr2.usedSize() << endl;
     arr2.print();
