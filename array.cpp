@@ -406,5 +406,7 @@ int main()
     arrSize = sizeof(arr5) / sizeof(arr5[0]);
     cout << "30 at : " << binarySearch(arr5, 30, arrSize) << endl;
     cout << "60 at : " << binarySearch(arr5, 60, arrSize) << endl;
+    cout << "0 at : " << binarySearch(arr5, 0, arrSize) << endl;
+    cout << "90 at : " << binarySearch(arr5, 90, arrSize) << endl;
     cout << "37 at : " << binarySearch(arr5, 37, arrSize) << endl;
 }
