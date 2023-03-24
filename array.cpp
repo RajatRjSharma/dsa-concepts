@@ -55,7 +55,7 @@ public:
 
     T maxElement()
     {
-        T maxx = (T)NULL;
+        T maxx = base_address && base_address[0] ? base_address[0] : (T)NULL;
         if (used_size && used_size > 0)
         {
             for (int i = 0; i < used_size; i++)
@@ -69,7 +69,7 @@ public:
 
     T minElement()
     {
-        T minn = (T)NULL;
+        T minn = base_address && base_address[0] ? base_address[0] : (T)NULL;
         if (used_size && used_size > 0)
         {
             for (int i = 0; i < used_size; i++)
@@ -210,6 +210,7 @@ int main()
     cout << "Delete Element : " << arr.deleteElement() << endl;
     cout << "Total Size : " << arr.totalSize() << endl;
     cout << "Used Size : " << arr.usedSize() << endl;
+    cout << "Min Element : " << arr.minElement() << endl;
     arr.print();
 
     cout << endl;
@@ -255,5 +256,6 @@ int main()
     cout << "Delete Element : " << arr2.deleteElement() << endl;
     cout << "Total Size : " << arr2.totalSize() << endl;
     cout << "Used Size : " << arr2.usedSize() << endl;
+    cout << "Min Element : " << arr2.minElement() << endl;
     arr2.print();
 }
