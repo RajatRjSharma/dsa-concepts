@@ -12,7 +12,7 @@ private:
     int used_size;
     T *base_address;
 
-    // Public Methods
+    // Constructors and Public Methods
 public:
     /**
      * Custom Array Constructor
