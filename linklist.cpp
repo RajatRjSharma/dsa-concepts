@@ -90,7 +90,7 @@ public:
     {
         MyLinkList<T> *temp = next;
         cout << data << " ";
-        while (temp != NULL)
+        while (temp)
         {
             cout << temp->data << " ";
             temp = temp->next;
@@ -105,7 +105,7 @@ public:
 template <typename T>
 void print(MyLinkList<T> *ll)
 {
-    while (ll != NULL)
+    while (ll)
     {
         cout << ll->getData() << " ";
         ll = ll->getNext();
@@ -140,30 +140,26 @@ MyLinkList<T> *insertAtBeginning(MyLinkList<T> *head, MyLinkList<T> *node)
 template <typename T>
 MyLinkList<T> *insertAtIndex(MyLinkList<T> *head, MyLinkList<T> *node, int index)
 {
-    if (index == 0)
-    {
-        return insertAtBeginning(head, node);
-    }
-    if (index < 0)
-    {
+    if (!head)
         return head;
-    }
+    if (index == 0)
+        return insertAtBeginning(head, node);
+    else if (index < 0)
+        return head;
     MyLinkList<T> *curr = head;
-    while (index > 1 && curr != NULL)
+    while (index > 1 && curr)
     {
         index--;
         curr = curr->getNext();
     }
-    if (curr != NULL)
+    if (curr)
     {
         node->setNext(curr->getNext());
         curr->setNext(node);
         return head;
     }
     else
-    {
         return head;
-    }
 }
 
 /**
@@ -174,21 +170,16 @@ MyLinkList<T> *insertAtIndex(MyLinkList<T> *head, MyLinkList<T> *node, int index
 template <typename T>
 MyLinkList<T> *insertAtEnd(MyLinkList<T> *head, MyLinkList<T> *node)
 {
+    if (!head)
+        return head;
     MyLinkList<T> *curr = head;
-    while (curr && curr->getNext() != NULL)
+    while (curr->getNext())
     {
         curr = curr->getNext();
     }
-    if (curr && curr->getNext() == NULL)
-    {
-        node->setNext(curr->getNext());
-        curr->setNext(node);
-        return head;
-    }
-    else
-    {
-        return head;
-    }
+    node->setNext(curr->getNext());
+    curr->setNext(node);
+    return head;
 }
 
 /**
@@ -200,12 +191,14 @@ MyLinkList<T> *insertAtEnd(MyLinkList<T> *head, MyLinkList<T> *node)
 template <typename T>
 MyLinkList<T> *insertAfterGivenNode(MyLinkList<T> *head, MyLinkList<T> *node, MyLinkList<T> *givenNode)
 {
+    if (!head)
+        return head;
     MyLinkList<T> *curr = head;
-    while (curr != givenNode && curr != NULL)
+    while (curr && curr != givenNode)
     {
         curr = curr->getNext();
     }
-    if (curr && curr == givenNode)
+    if (curr)
     {
         node->setNext(curr->getNext());
         curr->setNext(node);
@@ -243,21 +236,19 @@ MyLinkList<T> *deleteAtBeginning(MyLinkList<T> *head)
 template <typename T>
 MyLinkList<T> *deleteAtIndex(MyLinkList<T> *head, int index)
 {
-    if (index == 0)
-    {
-        return deleteAtBeginning(head);
-    }
-    if (index < 0)
-    {
+    if (!head)
         return head;
-    }
+    if (index == 0)
+        return deleteAtBeginning(head);
+    else if (index < 0)
+        return head;
     MyLinkList<T> *curr = head;
-    while (index > 1 && curr->getNext() != NULL)
+    while (index > 1 && curr->getNext())
     {
         index--;
         curr = curr->getNext();
     }
-    if (curr && curr->getNext() != NULL)
+    if (curr->getNext())
     {
         MyLinkList<T> *temp = curr->getNext();
         curr->setNext(temp->getNext());
@@ -265,9 +256,7 @@ MyLinkList<T> *deleteAtIndex(MyLinkList<T> *head, int index)
         return head;
     }
     else
-    {
         return head;
-    }
 }
 
 /**
@@ -277,27 +266,27 @@ MyLinkList<T> *deleteAtIndex(MyLinkList<T> *head, int index)
 template <typename T>
 MyLinkList<T> *deleteAtEnd(MyLinkList<T> *head)
 {
+    if (!head)
+        return head;
     MyLinkList<T> *curr = head;
-    while (curr && curr->getNext() && curr->getNext()->getNext() != NULL)
+    while (curr->getNext() && curr->getNext()->getNext())
     {
         curr = curr->getNext();
     }
-    if (curr && curr->getNext() && curr->getNext()->getNext() == NULL)
+    if (curr->getNext())
     {
         MyLinkList<T> *temp = curr->getNext();
         curr->setNext(temp->getNext());
         delete temp;
         return head;
     }
-    else if (curr && curr->getNext() == NULL)
+    else if (!curr->getNext())
     {
         delete curr;
         return NULL;
     }
     else
-    {
         return head;
-    }
 }
 
 /**
@@ -306,14 +295,16 @@ MyLinkList<T> *deleteAtEnd(MyLinkList<T> *head)
  * @param givenNode: Node after which a new node is to be inserted.
  */
 template <typename T>
-MyLinkList<T> *deleteAfterGivenNode(MyLinkList<T> *head, MyLinkList<T> *givenNode)
+MyLinkList<T> *deleteAGivenNode(MyLinkList<T> *head, MyLinkList<T> *givenNode)
 {
+    if (!head)
+        return head;
     MyLinkList<T> *curr = head;
-    while (curr && curr != givenNode && curr->getNext() != NULL)
+    while (curr->getNext() && curr->getNext() != givenNode)
     {
         curr = curr->getNext();
     }
-    if (curr && curr == givenNode)
+    if (curr->getNext())
     {
         MyLinkList<T> *temp = curr->getNext();
         curr->setNext(temp->getNext());
@@ -321,9 +312,7 @@ MyLinkList<T> *deleteAfterGivenNode(MyLinkList<T> *head, MyLinkList<T> *givenNod
         return head;
     }
     else
-    {
         return head;
-    }
 }
 
 int main()
@@ -384,8 +373,8 @@ int main()
     print(head);
     MyLinkList<int> *nodeTest = new MyLinkList<int>;
     nodeTest->setData(100);
-    MyLinkList<int> *test = NULL;
-    // test->setData(10);
+    MyLinkList<int> *test = new MyLinkList<int>;
+    test->setData(10);
     test = insertAtBeginning(test, nodeTest);
     print(test);
 
@@ -396,8 +385,8 @@ int main()
     print(head);
     nodeTest = new MyLinkList<int>;
     nodeTest->setData(100);
-    // test = new MyLinkList<int>;
-    //  test->setData(10);
+    test = new MyLinkList<int>;
+    test->setData(10);
     test = insertAtIndex(test, nodeTest, 1);
     print(test);
 
@@ -408,8 +397,8 @@ int main()
     print(head);
     nodeTest = new MyLinkList<int>;
     nodeTest->setData(100);
-    // test = new MyLinkList<int>;
-    //  test->setData(10);
+    test = new MyLinkList<int>;
+    test->setData(10);
     test = insertAtEnd(test, nodeTest);
     print(test);
 
@@ -420,8 +409,8 @@ int main()
     print(head);
     nodeTest = new MyLinkList<int>;
     nodeTest->setData(100);
-    // test = new MyLinkList<int>;
-    // test->setData(10);
+    test = new MyLinkList<int>;
+    test->setData(10);
     MyLinkList<int> *testNull = NULL;
     test = insertAfterGivenNode(test, nodeTest, testNull);
     print(test);
@@ -429,33 +418,33 @@ int main()
     cout << "Delete At Begin" << endl;
     head = deleteAtBeginning(head);
     print(head);
-    // test = new MyLinkList<int>;
-    //  test->setData(10);
+    test = new MyLinkList<int>;
+    test->setData(10);
     test = deleteAtBeginning(test);
     print(test);
 
     cout << "Delete At Index" << endl;
     head = deleteAtIndex(head, 2);
     print(head);
-    // test = new MyLinkList<int>;
-    //  test->setData(10);
+    test = new MyLinkList<int>;
+    test->setData(10);
     test = deleteAtIndex(test, 1);
     print(test);
 
     cout << "Delete At End" << endl;
     head = deleteAtEnd(head);
     print(head);
-    // test = new MyLinkList<int>;
-    //  test->setData(10);
+    test = new MyLinkList<int>;
+    test->setData(10);
     test = deleteAtEnd(test);
     print(test);
 
-    cout << "Delete After Given Node" << endl;
-    head = deleteAfterGivenNode(head, third);
+    cout << "Delete A Given Node" << endl;
+    head = deleteAGivenNode(head, third);
     print(head);
-    // test = new MyLinkList<int>;
-    // test->setData(10);
-    test = deleteAfterGivenNode(test, testNull);
+    test = new MyLinkList<int>;
+    test->setData(10);
+    test = deleteAGivenNode(test, testNull);
     print(test);
 
     MyLinkList<char> *ll9 = new MyLinkList('A');
