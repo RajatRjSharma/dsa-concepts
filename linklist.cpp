@@ -121,9 +121,14 @@ void print(MyLinkList<T> *ll)
 template <typename T>
 MyLinkList<T> *insertAtBeginning(MyLinkList<T> *head, MyLinkList<T> *node)
 {
-    node->setNext(head);
-    head = node;
-    return head;
+    if (head)
+    {
+        node->setNext(head);
+        head = node;
+        return head;
+    }
+    else
+        return head;
 }
 
 /**
@@ -170,11 +175,11 @@ template <typename T>
 MyLinkList<T> *insertAtEnd(MyLinkList<T> *head, MyLinkList<T> *node)
 {
     MyLinkList<T> *curr = head;
-    while (curr->getNext() != NULL)
+    while (curr && curr->getNext() != NULL)
     {
         curr = curr->getNext();
     }
-    if (curr->getNext() == NULL)
+    if (curr && curr->getNext() == NULL)
     {
         node->setNext(curr->getNext());
         curr->setNext(node);
@@ -200,10 +205,119 @@ MyLinkList<T> *insertAfterGivenNode(MyLinkList<T> *head, MyLinkList<T> *node, My
     {
         curr = curr->getNext();
     }
-    if (curr == givenNode)
+    if (curr && curr == givenNode)
     {
         node->setNext(curr->getNext());
         curr->setNext(node);
+        return head;
+    }
+    else
+    {
+        return head;
+    }
+}
+
+/**
+ * Method to Delete a node at Beginning of a LL.
+ * @param head: Link List in which node is to be inserted.
+ */
+template <typename T>
+MyLinkList<T> *deleteAtBeginning(MyLinkList<T> *head)
+{
+    if (head)
+    {
+        MyLinkList<T> *temp = head;
+        head = head->getNext();
+        delete temp;
+        return head;
+    }
+    else
+        return head;
+}
+
+/**
+ * Method to Delete a node at Index of a LL.
+ * @param head: Link List in which node is to be inserted.
+ * @param index: Index at which a node is to be inserted.
+ */
+template <typename T>
+MyLinkList<T> *deleteAtIndex(MyLinkList<T> *head, int index)
+{
+    if (index == 0)
+    {
+        return deleteAtBeginning(head);
+    }
+    if (index < 0)
+    {
+        return head;
+    }
+    MyLinkList<T> *curr = head;
+    while (index > 1 && curr->getNext() != NULL)
+    {
+        index--;
+        curr = curr->getNext();
+    }
+    if (curr && curr->getNext() != NULL)
+    {
+        MyLinkList<T> *temp = curr->getNext();
+        curr->setNext(temp->getNext());
+        delete temp;
+        return head;
+    }
+    else
+    {
+        return head;
+    }
+}
+
+/**
+ * Method to Delete a node at End of a LL.
+ * @param head: Link List in which node is to be inserted.
+ */
+template <typename T>
+MyLinkList<T> *deleteAtEnd(MyLinkList<T> *head)
+{
+    MyLinkList<T> *curr = head;
+    while (curr && curr->getNext() && curr->getNext()->getNext() != NULL)
+    {
+        curr = curr->getNext();
+    }
+    if (curr && curr->getNext() && curr->getNext()->getNext() == NULL)
+    {
+        MyLinkList<T> *temp = curr->getNext();
+        curr->setNext(temp->getNext());
+        delete temp;
+        return head;
+    }
+    else if (curr && curr->getNext() == NULL)
+    {
+        delete curr;
+        return NULL;
+    }
+    else
+    {
+        return head;
+    }
+}
+
+/**
+ * Method to Delete a node at a Given node of a LL.
+ * @param head: Link List in which node is to be inserted.
+ * @param givenNode: Node after which a new node is to be inserted.
+ */
+template <typename T>
+MyLinkList<T> *deleteAfterGivenNode(MyLinkList<T> *head, MyLinkList<T> *givenNode)
+{
+    MyLinkList<T> *curr = head;
+    while (curr && curr != givenNode && curr->getNext() != NULL)
+    {
+        curr = curr->getNext();
+    }
+    if (curr && curr == givenNode)
+    {
+        MyLinkList<T> *temp = curr->getNext();
+        curr->setNext(temp->getNext());
+        delete temp;
         return head;
     }
     else
@@ -263,9 +377,6 @@ int main()
     second->print();
     third->print();
 
-    MyLinkList<int> *test = new MyLinkList<int>;
-    test->setData(10);
-
     cout << "Insert At Begin" << endl;
     MyLinkList<int> *node = new MyLinkList<int>;
     node->setData(0);
@@ -273,6 +384,8 @@ int main()
     print(head);
     MyLinkList<int> *nodeTest = new MyLinkList<int>;
     nodeTest->setData(100);
+    MyLinkList<int> *test = NULL;
+    // test->setData(10);
     test = insertAtBeginning(test, nodeTest);
     print(test);
 
@@ -283,8 +396,8 @@ int main()
     print(head);
     nodeTest = new MyLinkList<int>;
     nodeTest->setData(100);
-    test = new MyLinkList<int>;
-    test->setData(10);
+    // test = new MyLinkList<int>;
+    //  test->setData(10);
     test = insertAtIndex(test, nodeTest, 1);
     print(test);
 
@@ -295,8 +408,8 @@ int main()
     print(head);
     nodeTest = new MyLinkList<int>;
     nodeTest->setData(100);
-    test = new MyLinkList<int>;
-    test->setData(10);
+    // test = new MyLinkList<int>;
+    //  test->setData(10);
     test = insertAtEnd(test, nodeTest);
     print(test);
 
@@ -307,9 +420,42 @@ int main()
     print(head);
     nodeTest = new MyLinkList<int>;
     nodeTest->setData(100);
-    test = new MyLinkList<int>;
-    test->setData(10);
-    test = insertAfterGivenNode(test, nodeTest, third);
+    // test = new MyLinkList<int>;
+    // test->setData(10);
+    MyLinkList<int> *testNull = NULL;
+    test = insertAfterGivenNode(test, nodeTest, testNull);
+    print(test);
+
+    cout << "Delete At Begin" << endl;
+    head = deleteAtBeginning(head);
+    print(head);
+    // test = new MyLinkList<int>;
+    //  test->setData(10);
+    test = deleteAtBeginning(test);
+    print(test);
+
+    cout << "Delete At Index" << endl;
+    head = deleteAtIndex(head, 2);
+    print(head);
+    // test = new MyLinkList<int>;
+    //  test->setData(10);
+    test = deleteAtIndex(test, 1);
+    print(test);
+
+    cout << "Delete At End" << endl;
+    head = deleteAtEnd(head);
+    print(head);
+    // test = new MyLinkList<int>;
+    //  test->setData(10);
+    test = deleteAtEnd(test);
+    print(test);
+
+    cout << "Delete After Given Node" << endl;
+    head = deleteAfterGivenNode(head, third);
+    print(head);
+    // test = new MyLinkList<int>;
+    // test->setData(10);
+    test = deleteAfterGivenNode(test, testNull);
     print(test);
 
     MyLinkList<char> *ll9 = new MyLinkList('A');
